@@ -45,7 +45,7 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
         }, Knowledge, _deviceFactory);
 
         await _kernel.ConnectAsync();
-
+        _logger.LogInformation("Connected to device, getting protocol information");
         await _kernel.ReceiveBytesAsync(async data =>
         {
             try
@@ -93,7 +93,7 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
         {
             _logger.LogError(e, "Exception in LegoWirelessProtocol Encode/Knowledge");
 
-            throw;
+          // throw;
         }
     }
 

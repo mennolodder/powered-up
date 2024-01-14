@@ -50,8 +50,6 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
         {
             try
             {
-                _logger.LogInformation($"Received {dataArrayToString(data)}");
-                
                 var message = MessageEncoder.Decode(data, Knowledge);
 
                 await KnowledgeManager.ApplyDynamicProtocolKnowledge(message, Knowledge, _deviceFactory);
@@ -66,11 +64,6 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
             }
         });
     }
-    
-    public string dataArrayToString(byte[] data )
-    {
-         return string.Join(":", data.Select(b => b.ToString("X2")).ToArray());
-    }
    
     public async Task DisconnectAsync()
     {
@@ -82,8 +75,6 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
         try
         {
             var data = MessageEncoder.Encode(message, Knowledge);
-
-            _logger.LogInformation($"Sending {dataArrayToString(data)}");
 
             await KnowledgeManager.ApplyDynamicProtocolKnowledge(message, Knowledge, _deviceFactory);
 

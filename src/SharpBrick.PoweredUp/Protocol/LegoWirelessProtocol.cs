@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
@@ -42,7 +45,7 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
         }, Knowledge, _deviceFactory);
 
         await _kernel.ConnectAsync();
-
+        _logger.LogInformation("Connected to device, getting protocol information");
         await _kernel.ReceiveBytesAsync(async data =>
         {
             try
@@ -61,7 +64,7 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
             }
         });
     }
-
+   
     public async Task DisconnectAsync()
     {
         await _kernel.DisconnectAsync();
@@ -81,7 +84,7 @@ public class LegoWirelessProtocol : ILegoWirelessProtocol
         {
             _logger.LogError(e, "Exception in LegoWirelessProtocol Encode/Knowledge");
 
-            throw;
+          // throw;
         }
     }
 
